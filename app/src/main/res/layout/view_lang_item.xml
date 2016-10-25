@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_lang_item"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        card_view:cardCornerRadius="4dp">
+
+        <RelativeLayout
+            android:id="@+id/lang_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/lang_image"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                />
+
+            <TextView
+                android:id="@+id/lang_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text = "Language title"
+                android:textSize="16sp"
+                android:layout_toRightOf="@+id/lang_image"
+                />
+
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text = "level"
+                android:textSize="12sp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/lang_image"
+                android:layout_below="@+id/lang_title"
+                />
+
+            <TextView
+                android:id="@+id/learned_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text = "1/10"
+                android:textSize="12sp"
+                android:text="@string/learn_result"
+                android:layout_marginRight="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@+id/lang_image"
+                />
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
