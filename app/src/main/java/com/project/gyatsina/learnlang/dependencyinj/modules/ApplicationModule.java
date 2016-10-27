@@ -13,4 +13,8 @@ public class ApplicationModule
     {
         this.application = application;
     }
+
+    public LearnLangApplication getApplication() {
+        return application;
+    }
 }
