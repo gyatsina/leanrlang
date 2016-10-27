@@ -9,7 +9,7 @@ public class CourseViewModel {
     private int level;
     private int progress;
     private int total;
-    private String image;
+    private String thumb;
 
     public CourseViewModel(LearnLangCourse course) {
         this.id = course.getId();
@@ -17,7 +17,7 @@ public class CourseViewModel {
         this.level = course.getLevel();
         this.progress = course.getProgress();
         this.total = course.getTotal();
-        this.image = course.getImage();
+        this.thumb = course.getImage();
     }
 
     public String getId() {
@@ -40,7 +40,7 @@ public class CourseViewModel {
         return total;
     }
 
-    public String getImage() {
-        return image;
+    public String getThumb() {
+        return thumb;
     }
 }

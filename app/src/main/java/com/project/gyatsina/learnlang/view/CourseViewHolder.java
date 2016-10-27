@@ -9,6 +9,9 @@ import android.widget.TextView;
 import com.project.gyatsina.learnlang.R;
 import com.project.gyatsina.learnlang.dependencyinj.modules.ApplicationModule;
 import com.project.gyatsina.learnlang.viewmodel.CourseViewModel;
+import com.squareup.picasso.Picasso;
+
+import org.apache.commons.validator.routines.UrlValidator;
 
 import javax.inject.Inject;
 
@@ -43,7 +46,7 @@ public class CourseViewHolder extends RecyclerView.ViewHolder
         resultTextView.setText(learnedResult);
 
         UrlValidator urlValidator = new UrlValidator();
-        boolean hasThumbnail = viewModel.getThumbnailUrl() != null && urlValidator.isValid(viewModel.getThumbnailUrl());
+        boolean hasThumbnail = viewModel.getThumb() != null && urlValidator.isValid(viewModel.getThumb());
 
         // Show/hide the thumbnail if there is/isn't one
         thumbnailImageView.setVisibility(hasThumbnail ? View.VISIBLE : View.GONE);
@@ -51,7 +54,7 @@ public class CourseViewHolder extends RecyclerView.ViewHolder
         // Load the thumbnail if there is one
         if (hasThumbnail)
         {
-            Picasso.with(view.getContext()).load(viewModel.getThumbnailUrl()).into(thumbnailImageView);
+            Picasso.with(view.getContext()).load(viewModel.getThumb()).into(thumbnailImageView);
         }
     }
 }
