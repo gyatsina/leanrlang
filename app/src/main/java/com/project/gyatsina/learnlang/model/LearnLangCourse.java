@@ -8,6 +8,15 @@ public class LearnLangCourse implements LearnLangObject {
     private int total;
     private String image;
 
+    public LearnLangCourse(String id, String lessonName, int level, int progress, int total, String image) {
+        this.id = id;
+        this.lessonName = lessonName;
+        this.level = level;
+        this.progress = progress;
+        this.total = total;
+        this.image = image;
+    }
+
     public String getId() {
         return id;
     }
