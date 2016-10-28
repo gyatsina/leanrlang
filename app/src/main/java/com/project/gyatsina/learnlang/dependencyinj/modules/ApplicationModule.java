@@ -3,6 +3,7 @@ package com.project.gyatsina.learnlang.dependencyinj.modules;
 import com.project.gyatsina.learnlang.LearnLangApplication;
 
 import dagger.Module;
+import dagger.Provides;
 
 @Module
 public class ApplicationModule
@@ -14,7 +15,8 @@ public class ApplicationModule
         this.application = application;
     }
 
-    public LearnLangApplication getApplication() {
+    @Provides
+    public LearnLangApplication provideApplication() {
         return application;
     }
 }

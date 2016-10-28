@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.project.gyatsina.learnlang.LearnLangApplication;
 import com.project.gyatsina.learnlang.R;
 import com.project.gyatsina.learnlang.dependencyinj.modules.ApplicationModule;
 import com.project.gyatsina.learnlang.viewmodel.CourseViewModel;
@@ -24,7 +25,7 @@ public class CourseViewHolder extends RecyclerView.ViewHolder
     private ImageView thumbnailImageView;
 
     @Inject
-    ApplicationModule appM;
+    LearnLangApplication app;
 
     public CourseViewHolder(View view)
     {
@@ -41,7 +42,7 @@ public class CourseViewHolder extends RecyclerView.ViewHolder
     {
         titleTextView.setText(viewModel.getLessonName());
         levelTextView.setText(viewModel.getLevel());
-        Resources res = appM.getApplication().getResources();
+        Resources res = app.getResources();
         String learnedResult = String.format(res.getString(R.string.learn_result), viewModel.getProgress(), viewModel.getTotal());
         resultTextView.setText(learnedResult);
 
