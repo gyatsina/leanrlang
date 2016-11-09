@@ -1,6 +1,7 @@
 package com.project.gyatsina.learnlang.viewmodel;
 
 import com.project.gyatsina.learnlang.client.LearnLangClient;
+import com.project.gyatsina.learnlang.model.LearnLangCourse;
 import com.project.gyatsina.learnlang.model.LearnLangListing;
 
 import java.util.ArrayList;
@@ -46,9 +47,9 @@ public class FeedViewModel
             // Flatten into observable of RedditLinks
             .map(LearnLangListing::getChildren)
             .flatMapIterable(list -> list)
-            .filter(object -> object instanceof RedditLink)
+            .filter(object -> object instanceof LearnLangCourse)
             // Transform model to viewmodel
-            .map(link -> new CourseViewModel((RedditLink) link))
+            .map(link -> new CourseViewModel((LearnLangCourse) link))
             // Merge viewmodels into a single list to be emitted
             .toList()
             // Concatenate the new posts to the current posts list, then emit it via the post subject
