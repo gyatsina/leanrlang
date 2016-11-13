@@ -1,10 +1,12 @@
 package com.project.gyatsina.learnlang.view;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,11 +20,13 @@ import com.project.gyatsina.learnlang.LearnLangApplication;
 import com.project.gyatsina.learnlang.R;
 import com.project.gyatsina.learnlang.view.adapter.CourseAdapter;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
-import javax.inject.Inject;
-
-public class MainActivity extends AppCompatActivity{
+@EActivity(R.layout.activity_main)
+public class MainActivity extends AppCompatActivity {
 //        implements NavigationView.OnNavigationItemSelectedListener {
 
     @ViewById(R.id.fab)
@@ -31,7 +35,7 @@ public class MainActivity extends AppCompatActivity{
     @ViewById(R.id.toolbar)
     Toolbar toolbar;
 
-    @ViewById(R.id.drawer_layout)
+//    @ViewById(R.id.drawer_layout)
     DrawerLayout drawer;
 
     @ViewById(R.id.post_list)
@@ -44,26 +48,34 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initViews();
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
+        System.out.println("vth673  onCreate");
+        ((LearnLangApplication) getApplication()).component().inject(this);
+//        setContentView(R.layout.activity_main);
     }
 
-    private void initViews() {
-        ((LearnLangApplication) getApplication()).component().inject(this);
-
-        setContentView(R.layout.activity_main);
+    @AfterViews
+    void initViews() {
+        System.out.println("vth673   initViews");
         setSupportActionBar(toolbar);
 
+//        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,mDrawerLayout
+//                R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getActionBar().setTitle(getTitle());
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getActionBar().setTitle(getTitle());
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -73,11 +85,19 @@ public class MainActivity extends AppCompatActivity{
         courseAdapter = new CourseAdapter();
         courseList.setAdapter(courseAdapter);
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 //        navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void initBindings(){
+    private void initBindings() {
 
     }
 
@@ -116,7 +136,7 @@ public class MainActivity extends AppCompatActivity{
 //    @SuppressWarnings("StatementWithEmptyBody")
 //    @Override
 //    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+    // Handle navigation view item clicks here.
 //        int id = item.getItemId();
 //
 //        if (id == R.id.nav_camera) {
