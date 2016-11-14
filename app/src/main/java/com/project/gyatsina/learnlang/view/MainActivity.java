@@ -1,5 +1,6 @@
 package com.project.gyatsina.learnlang.view;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @ViewById(R.id.toolbar)
     Toolbar toolbar;
 
-//    @ViewById(R.id.drawer_layout)
+    @ViewById(R.id.drawer_layout)
     DrawerLayout drawer;
 
     @ViewById(R.id.post_list)
@@ -60,18 +61,18 @@ public class MainActivity extends AppCompatActivity {
 
 //        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,mDrawerLayout
 //                R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close)
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getActionBar().setTitle(getTitle());
+                toolbar.setTitle(getTitle());
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getActionBar().setTitle(getTitle());
+                toolbar.setTitle(getTitle());
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
