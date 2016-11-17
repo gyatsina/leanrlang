@@ -24,7 +24,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     @ViewById(R.id.fab)
     FloatingActionButton fab;
@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity{
 
     @AfterViews
     void initViews() {
-        System.out.println("vth673   initViews");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -80,14 +79,9 @@ public class MainActivity extends AppCompatActivity{
         courseAdapter = new CourseAdapter();
         courseList.setAdapter(courseAdapter);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        fab.setOnClickListener((View view) ->
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
+                        .setAction("Action", null).show());
     }
 
     private void initBindings() {
