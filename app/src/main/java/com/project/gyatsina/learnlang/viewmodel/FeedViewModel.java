@@ -1,6 +1,7 @@
 package com.project.gyatsina.learnlang.viewmodel;
 
 import com.project.gyatsina.learnlang.client.LearnLangClient;
+import com.project.gyatsina.learnlang.client.LearnLangClientMock;
 import com.project.gyatsina.learnlang.model.LearnLangCourse;
 import com.project.gyatsina.learnlang.model.LearnLangListing;
 
@@ -15,6 +16,7 @@ import rx.subjects.BehaviorSubject;
 public class FeedViewModel
 {
     private LearnLangClient redditClient;
+    private LearnLangClientMock mockRedditClient;
 
     private int pageLimit;
     private String afterToken;
@@ -22,9 +24,11 @@ public class FeedViewModel
     private BehaviorSubject<Boolean> isLoadingSubject = BehaviorSubject.create(false);
 
     @Inject
-    public FeedViewModel(LearnLangClient redditClient)
+//    public FeedViewModel(LearnLangClient redditClient)
+    public FeedViewModel(LearnLangClientMock mockRedditClient)
     {
-        this.redditClient = redditClient;
+//        this.redditClient = redditClient;
+        this.mockRedditClient = mockRedditClient;
         this.pageLimit = 25;
     }
 
@@ -38,7 +42,8 @@ public class FeedViewModel
 
         isLoadingSubject.onNext(true);
 
-        return redditClient
+//        return redditClient
+        return mockRedditClient
             .getTop(afterToken, pageLimit)
             // Safe to cast to LearnLangListing, as this is always returned from top posts
             .cast(LearnLangListing.class)

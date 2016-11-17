@@ -10,6 +10,9 @@ import rx.Observable;
 import rx.Subscriber;
 
 public class LearnLangClientMock implements LearnLangClient {
+    public LearnLangClientMock() {
+
+    }
 
     @Override
     public Observable<LearnLangObject> getTop(@Query("after") String after, @Query("limit") int limit) {

@@ -2,7 +2,6 @@ package com.project.gyatsina.learnlang.view;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,10 +17,18 @@ import android.view.MenuItem;
 import com.project.gyatsina.learnlang.LearnLangApplication;
 import com.project.gyatsina.learnlang.R;
 import com.project.gyatsina.learnlang.view.adapter.CourseAdapter;
+import com.project.gyatsina.learnlang.viewmodel.FeedViewModel;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
+
+import javax.inject.Inject;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.subscriptions.CompositeSubscription;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
@@ -38,8 +45,16 @@ public class MainActivity extends AppCompatActivity {
     @ViewById(R.id.post_list)
     RecyclerView courseList;
 
+    @OptionsMenuItem(R.id.progress)
+    MenuItem loadingMenuItem;
+
+    @Inject
+    FeedViewModel viewModel;
+
     private CourseAdapter courseAdapter;
     private LinearLayoutManager courseListLayoutManager;
+
+    private CompositeSubscription subscriptions;
 
 
     @Override
@@ -47,6 +62,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         ((LearnLangApplication) getApplication()).component().inject(this);
+
+        subscriptions = new CompositeSubscription();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        subscriptions.unsubscribe();
     }
 
     @AfterViews
@@ -85,7 +109,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initBindings() {
+        // Observable that emits when the RecyclerView is scrolled to the bottom
+        Observable<Void> infiniteScrollObservable = Observable.create(subscriber -> {
+            courseList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    int totalItemCount = courseListLayoutManager.getItemCount();
+                    int visibleItemCount = courseListLayoutManager.getChildCount();
+                    int firstVisibleItem = courseListLayoutManager.findFirstVisibleItemPosition();
 
+                    if ((visibleItemCount + firstVisibleItem) >= totalItemCount) {
+                        subscriber.onNext(null);
+                    }
+                }
+            });
+        });
+
+        subscriptions.addAll(
+                // Bind list of posts to the RecyclerView
+                viewModel.postsObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(courseAdapter::setItems),
+
+                // Bind loading status to show/hide loading spinner
+                viewModel.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(this::setIsLoading),
+
+                // Trigger next page load when RecyclerView is scrolled to the bottom
+                infiniteScrollObservable.subscribe(x -> loadNextPage())
+        );
+    }
+
+    private void loadNextPage() {
+        subscriptions.add(
+                viewModel.loadMorePosts().subscribe()
+        );
     }
 
     @Override
@@ -103,6 +158,12 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    private void setIsLoading(boolean isLoading) {
+        if (loadingMenuItem != null) {
+            loadingMenuItem.setVisible(isLoading);
+        }
     }
 
     @Override
