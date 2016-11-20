@@ -3,12 +3,12 @@ package com.project.gyatsina.learnlang.model;
 public class LearnLangCourse implements LearnLangObject {
     private String id;
     private String lessonName;
-    private int level;
+    private String level;
     private int progress;
     private int total;
     private String image;
 
-    public LearnLangCourse(String id, String lessonName, int level, int progress, int total, String image) {
+    public LearnLangCourse(String id, String lessonName, String level, int progress, int total, String image) {
         this.id = id;
         this.lessonName = lessonName;
         this.level = level;
@@ -25,7 +25,7 @@ public class LearnLangCourse implements LearnLangObject {
         return lessonName;
     }
 
-    public int getLevel() {
+    public String getLevel() {
         return level;
     }
 

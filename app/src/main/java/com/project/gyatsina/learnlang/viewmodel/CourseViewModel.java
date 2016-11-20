@@ -6,7 +6,7 @@ import com.project.gyatsina.learnlang.model.LearnLangCourse;
 public class CourseViewModel {
     private String id;
     private String lessonName;
-    private int level;
+    private String level;
     private int progress;
     private int total;
     private String thumb;
@@ -28,7 +28,7 @@ public class CourseViewModel {
         return lessonName;
     }
 
-    public int getLevel() {
+    public String getLevel() {
         return level;
     }
 

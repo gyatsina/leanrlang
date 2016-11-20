@@ -33,7 +33,7 @@ public class CourseViewHolder extends RecyclerView.ViewHolder
 
         this.view = view;
         this.titleTextView = (TextView) view.findViewById(R.id.lang_title);
-        this.levelTextView = (TextView) view.findViewById(R.id.level);
+        this.levelTextView = (TextView) view.findViewById(R.id.level_text);
         this.resultTextView = (TextView) view.findViewById(R.id.learn_result);
         this.thumbnailImageView = (ImageView)view.findViewById(R.id.lang_image);
     }
@@ -42,9 +42,9 @@ public class CourseViewHolder extends RecyclerView.ViewHolder
     {
         titleTextView.setText(viewModel.getLessonName());
         levelTextView.setText(viewModel.getLevel());
-        Resources res = app.getResources();
-        String learnedResult = String.format(res.getString(R.string.learn_result), viewModel.getProgress(), viewModel.getTotal());
-        resultTextView.setText(learnedResult);
+//        Resources res = app.getResources();
+//        String learnedResult = String.format(res.getString(R.string.learn_result), viewModel.getProgress(), viewModel.getTotal());
+//        resultTextView.setText(learnedResult);
 
         UrlValidator urlValidator = new UrlValidator();
         boolean hasThumbnail = viewModel.getThumb() != null && urlValidator.isValid(viewModel.getThumb());

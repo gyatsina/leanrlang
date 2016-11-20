@@ -1,6 +1,7 @@
 package com.project.gyatsina.learnlang.view;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -106,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener((View view) ->
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show());
+
+        initBindings();
+        loadNextPage();
     }
 
     private void initBindings() {
@@ -138,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadNextPage() {
+        System.out.println("loadNextPage");
         subscriptions.add(
                 viewModel.loadMorePosts().subscribe()
         );

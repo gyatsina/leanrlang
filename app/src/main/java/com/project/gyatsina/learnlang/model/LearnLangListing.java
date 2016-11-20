@@ -8,6 +8,12 @@ public class LearnLangListing implements LearnLangObject
     private String before;
     private String after;
 
+    public LearnLangListing(List<LearnLangObject> children, String before, String after) {
+        this.children = children;
+        this.before = before;
+        this.after = after;
+    }
+
     public List<LearnLangObject> getChildren() {
         return children;
     }
