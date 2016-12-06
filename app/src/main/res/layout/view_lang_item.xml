@@ -14,7 +14,7 @@
         android:id="@+id/card_lang_item"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="88dp"
+        android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         card_view:cardCornerRadius="4dp">
