@@ -10,6 +10,8 @@ import org.androidannotations.annotations.EApplication;
 
 public class LearnLangApplication extends Application {
 
+    private static LearnLangApplication instance;
+
     private ApplicationComponent applicationComponent;
 
     @Override
@@ -21,6 +23,12 @@ public class LearnLangApplication extends Application {
                 .builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
+
+        instance = this;
+    }
+
+    public static LearnLangApplication getInstance() {
+        return instance;
     }
 
     public ApplicationComponent component() {

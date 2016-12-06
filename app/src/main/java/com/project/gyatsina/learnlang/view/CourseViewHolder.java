@@ -24,9 +24,6 @@ public class CourseViewHolder extends RecyclerView.ViewHolder
     private TextView resultTextView;
     private ImageView thumbnailImageView;
 
-    @Inject
-    LearnLangApplication app;
-
     public CourseViewHolder(View view)
     {
         super(view);
@@ -42,9 +39,10 @@ public class CourseViewHolder extends RecyclerView.ViewHolder
     {
         titleTextView.setText(viewModel.getLessonName());
         levelTextView.setText(viewModel.getLevel());
-//        Resources res = app.getResources();
-//        String learnedResult = String.format(res.getString(R.string.learn_result), viewModel.getProgress(), viewModel.getTotal());
-//        resultTextView.setText(learnedResult);
+        LearnLangApplication app = LearnLangApplication.getInstance();
+        Resources res = app.getResources();
+        String learnedResult = String.format(res.getString(R.string.learn_result), viewModel.getProgress(), viewModel.getTotal());
+        resultTextView.setText(learnedResult);
 
         UrlValidator urlValidator = new UrlValidator();
         boolean hasThumbnail = viewModel.getThumb() != null && urlValidator.isValid(viewModel.getThumb());
