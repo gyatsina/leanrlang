@@ -1,5 +1,6 @@
 package com.project.gyatsina.learnlang.view;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -53,7 +54,9 @@ public class CourseViewHolder extends RecyclerView.ViewHolder
         // Load the thumbnail if there is one
         if (hasThumbnail)
         {
-            Picasso.with(view.getContext()).load(viewModel.getThumb()).into(thumbnailImageView);
+//            Picasso.with(view.getContext()).load(viewModel.getThumb()).into(thumbnailImageView);
+            Context context = LearnLangApplication.getInstance().getBaseContext();
+//            Picasso.with(view.getContext()).load("http://i.imgur.com/DvpvklR.png").resize(50, 50).centerCrop().into(thumbnailImageView);
         }
     }
 }

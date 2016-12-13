@@ -29,12 +29,12 @@ public class LearnLangClientMock implements LearnLangClient {
 //        };
 
         List<LearnLangObject> langCourseList = new ArrayList<>();
-        langCourseList.add(new LearnLangCourse("11", "lessonName", "1", 10, 100,
-                "http://cdn.pet360.com/pet360/Content/Images/CMS/Slideshows/cms_resized_large/cats-that-stay-small1.lg.jpg"));
-        langCourseList.add(new LearnLangCourse("12", "lessonName", "1", 20, 100,
-                        "http://cdn.pet360.com/pet360/Content/Images/CMS/Slideshows/cms_resized_large/cats-that-stay-small1.lg.jpg"));
-        langCourseList.add(new LearnLangCourse("12", "lessonName", "2", 12, 100,
-                        "http://cdn.pet360.com/pet360/Content/Images/CMS/Slideshows/cms_resized_large/cats-that-stay-small1.lg.jpg"));
+        langCourseList.add(new LearnLangCourse("11", "languageName", "1", 10, 100,
+                "https://images.template.net/wp-content/uploads/2016/03/15120347/Smiling-Cat-Drawing-Free-Download-PDF.jpg"));
+        langCourseList.add(new LearnLangCourse("12", "languageName", "1", 20, 100,
+                        "https://images.template.net/wp-content/uploads/2016/03/15120347/Smiling-Cat-Drawing-Free-Download-PDF.jpg"));
+        langCourseList.add(new LearnLangCourse("12", "languageName", "2", 12, 100,
+                        "https://images.template.net/wp-content/uploads/2016/03/15120347/Smiling-Cat-Drawing-Free-Download-PDF.jpg"));
 
         String beforeArray = null;
         String afterArray = "123_123";
