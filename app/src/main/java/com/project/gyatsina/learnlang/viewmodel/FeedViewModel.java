@@ -4,7 +4,6 @@ import com.project.gyatsina.learnlang.client.LearnLangClient;
 import com.project.gyatsina.learnlang.client.LearnLangClientMock;
 import com.project.gyatsina.learnlang.model.LearnLangCourse;
 import com.project.gyatsina.learnlang.model.LearnLangListing;
-import com.project.gyatsina.learnlang.model.LearnLangObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +41,6 @@ public class FeedViewModel
         }
 
         isLoadingSubject.onNext(true);
-
-        Observable langObject = mockRedditClient.getTop(afterToken, pageLimit);
 
 //        return redditClient
         return mockRedditClient

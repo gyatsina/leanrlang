@@ -32,7 +32,6 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:background="#99339933"
                 android:src="@drawable/ic_scan_toggle_off"
                 />
 
