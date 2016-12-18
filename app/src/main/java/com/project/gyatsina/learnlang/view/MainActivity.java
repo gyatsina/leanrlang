@@ -1,19 +1,19 @@
 package com.project.gyatsina.learnlang.view;
 
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.project.gyatsina.learnlang.LearnLangApplication;
 import com.project.gyatsina.learnlang.R;
@@ -104,6 +104,18 @@ public class MainActivity extends AppCompatActivity {
         courseAdapter = new CourseAdapter();
         courseList.setAdapter(courseAdapter);
 
+        courseList.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, courseList ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Log.d("initViews ", "onItemClick " );
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        Log.d("initViews ", "onLongItemClick " );
+                    }
+                })
+        );
+
         fab.setOnClickListener((View view) ->
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show());
@@ -122,7 +134,9 @@ public class MainActivity extends AppCompatActivity {
                     int visibleItemCount = courseListLayoutManager.getChildCount();
                     int firstVisibleItem = courseListLayoutManager.findFirstVisibleItemPosition();
 
-                    if ((visibleItemCount + firstVisibleItem) >= totalItemCount) {
+                    int sum = visibleItemCount + firstVisibleItem;
+                    if ((sum) >= totalItemCount) {
+                        Log.d("initBindings  sum="+sum, "totalItemCount ="+totalItemCount );
                         subscriber.onNext(null);
                     }
                 }
@@ -134,10 +148,10 @@ public class MainActivity extends AppCompatActivity {
                 viewModel.postsObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(courseAdapter::setItems),
 
                 // Bind loading status to show/hide loading spinner
-                viewModel.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(this::setIsLoading),
+                viewModel.isLoadingObservable().observeOn(AndroidSchedulers.mainThread()).subscribe(this::setIsLoading)
 
                 // Trigger next page load when RecyclerView is scrolled to the bottom
-                infiniteScrollObservable.subscribe(x -> loadNextPage())
+//                infiniteScrollObservable.subscribe(x -> loadNextPage())
         );
     }
 
