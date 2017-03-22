@@ -11,9 +11,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.project.gyatsina.learnlang.LearnLangApplication;
 import com.project.gyatsina.learnlang.R;
@@ -22,6 +24,7 @@ import com.project.gyatsina.learnlang.viewmodel.FeedViewModel;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.OptionsMenuItem;
 import org.androidannotations.annotations.ViewById;
 
@@ -34,8 +37,8 @@ import rx.subscriptions.CompositeSubscription;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
-    @ViewById(R.id.fab)
-    FloatingActionButton fab;
+//    @ViewById(R.id.fab)
+//    FloatingActionButton fab;
 
     @ViewById(R.id.toolbar)
     Toolbar toolbar;
@@ -49,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     @OptionsMenuItem(R.id.progress)
     MenuItem loadingMenuItem;
 
+    @FragmentById(R.id.word_page_fragment)
+    WordPageFragment wordPageFragment;
+
     @Inject
     FeedViewModel viewModel;
 
@@ -56,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager courseListLayoutManager;
 
     private CompositeSubscription subscriptions;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +112,12 @@ public class MainActivity extends AppCompatActivity {
         courseList.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, courseList ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Log.d("initViews ", "onItemClick " );
+                        Bundle bundle = new Bundle();
+                        bundle.putString(BundleKeys.WORD_PAGE_TEXT, courseAdapter.getItem(position).getLessonName());
+                        bundle.putString(BundleKeys.WORD_PAGE_IMAGE, courseAdapter.getItem(position).getThumb());
+                        wordPageFragment.setData(bundle);
+                        wordPageFragment.showData();
+                        drawer.closeDrawers();
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
@@ -115,10 +125,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
         );
+        Bundle bundle = new Bundle(1);
+        bundle.putString("value", "this is value");
+        wordPageFragment.setData(bundle);
+        wordPageFragment.showData();
 
-        fab.setOnClickListener((View view) ->
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show());
+//        fab.setOnClickListener((View view) ->
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show());
 
         initBindings();
         loadNextPage();

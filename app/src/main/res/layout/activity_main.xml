@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout android:id="@+id/drawer_layout"
-                                        xmlns:android="http://schemas.android.com/apk/res/android"
-                                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                                        xmlns:tools="http://schemas.android.com/tools"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:fitsSystemWindows="true"
-                                        tools:context=".view.MainActivity"
-                                        tools:openDrawer="start">
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".view.MainActivity"
+    tools:openDrawer="start">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,43 +24,37 @@
             <include
                 layout="@layout/app_bar_main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
             />
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/content_frame"
+        <fragment
+            android:name="com.project.gyatsina.learnlang.view.WordPageFragment_"
+            android:id="@+id/word_page_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/content_drawer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="?attr/actionBarSize"
         android:layout_gravity="start|bottom"
         android:background="@android:color/transparent"
-        android:orientation="vertical">
-
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@android:color/white"-->
-            <!--android:text="HELLO LINEAR"-->
-            <!--android:textColor="@android:color/holo_orange_dark"/>-->
-
+        android:orientation="vertical"
+        android:paddingTop="?attr/actionBarSize">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/post_list"
-            android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@android:color/white"
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
